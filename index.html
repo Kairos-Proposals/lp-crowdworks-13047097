@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案 | 一般社団法人 公式LP コーディング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest-deep:#16332A;
+    --forest-mid:#264D3B;
+    --moss:#6B8F5A;
+    --sage:#C9D4B5;
+    --cream:#F4F0E4;
+    --bark:#7A5C3E;
+    --gold:#D4A24C;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    background:var(--cream);
+    color:var(--forest-deep);
+    line-height:1.85;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Shippori Mincho', serif;
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+
+  .fade-in{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(212,162,76,0.18), transparent 45%),
+      radial-gradient(circle at 15% 85%, rgba(107,143,90,0.25), transparent 50%),
+      linear-gradient(160deg, var(--forest-deep) 0%, var(--forest-mid) 60%, #1c3d2d 100%);
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6rem 1.5rem;
+    overflow:hidden;
+  }
+
+  .rings{
+    position:absolute;
+    top:50%;
+    right:-10%;
+    transform:translateY(-50%);
+    width:min(70vw, 720px);
+    height:min(70vw, 720px);
+    opacity:0.35;
+    z-index:0;
+  }
+
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:800px;
+    text-align:center;
+  }
+
+  .hero-badge{
+    display:inline-block;
+    border:1px solid rgba(244,240,228,0.5);
+    border-radius:999px;
+    padding:0.4rem 1.3rem;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    margin-bottom:2rem;
+    color:var(--sage);
+  }
+
+  .hero h1{
+    font-size:clamp(1.9rem, 4.6vw, 3.2rem);
+    line-height:1.5;
+    margin-bottom:1.6rem;
+  }
+
+  .hero h1 span{
+    color:var(--gold);
+  }
+
+  .hero p.lead{
+    font-size:1.02rem;
+    color:var(--sage);
+    max-width:560px;
+    margin:0 auto 2.4rem;
+  }
+
+  .hero .meta{
+    font-size:0.85rem;
+    color:rgba(244,240,228,0.65);
+    letter-spacing:0.08em;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.2rem;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:0.72rem;
+    color:rgba(244,240,228,0.5);
+    letter-spacing:0.2em;
+    z-index:2;
+  }
+
+  /* ===== SECTION COMMON ===== */
+  section{
+    padding:6rem 1.5rem;
+    position:relative;
+  }
+
+  .section-inner{
+    max-width:980px;
+    margin:0 auto;
+  }
+
+  .tag{
+    display:inline-block;
+    font-size:0.75rem;
+    letter-spacing:0.2em;
+    color:var(--bark);
+    border-bottom:2px solid var(--gold);
+    padding-bottom:0.3rem;
+    margin-bottom:1.4rem;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-weight:700;
+  }
+
+  .section-title{
+    font-size:clamp(1.5rem, 3vw, 2.1rem);
+    margin-bottom:2rem;
+    color:var(--forest-deep);
+  }
+
+  /* ===== UNDERSTANDING ===== */
+  .understand{
+    background:var(--cream);
+  }
+
+  .understand-box{
+    background:#fff;
+    border-radius:6px;
+    padding:2.6rem;
+    box-shadow:0 12px 40px rgba(38,77,59,0.08);
+    border-left:5px solid var(--moss);
+  }
+
+  .understand-box p{
+    margin-bottom:1.2rem;
+    font-size:0.98rem;
+  }
+
+  .understand-box p:last-child{margin-bottom:0;}
+
+  .highlight-line{
+    font-family:'Shippori Mincho', serif;
+    font-size:1.25rem;
+    color:var(--forest-mid);
+    margin:1.6rem 0;
+    padding-left:1.2rem;
+    border-left:3px solid var(--gold);
+  }
+
+  /* ===== VALUE CARDS ===== */
+  .value{
+    background:linear-gradient(180deg, var(--forest-deep) 0%, var(--forest-mid) 100%);
+    color:var(--cream);
+  }
+
+  .value .tag{color:var(--sage);border-bottom-color:var(--gold);}
+  .value .section-title{color:var(--cream);}
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1.4rem;
+    margin-top:2.4rem;
+  }
+
+  .card{
+    background:rgba(244,240,228,0.06);
+    border:1px solid rgba(244,240,228,0.14);
+    border-radius:8px;
+    padding:2rem 1.8rem;
+    transition:transform 0.35s ease, background 0.35s ease;
+  }
+
+  .card:hover{
+    transform:translateY(-4px);
+    background:rgba(244,240,228,0.1);
+  }
+
+  .card .num{
+    font-family:'Shippori Mincho', serif;
+    font-size:0.85rem;
+    color:var(--gold);
+    letter-spacing:0.1em;
+    display:block;
+    margin-bottom:0.8rem;
+  }
+
+  .card h3{
+    font-size:1.15rem;
+    margin-bottom:0.8rem;
+    color:var(--cream);
+  }
+
+  .card p{
+    font-size:0.9rem;
+    color:var(--sage);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline{
+    background:var(--cream);
+  }
+
+  .tl-list{
+    margin-top:2.4rem;
+    position:relative;
+  }
+
+  .tl-list::before{
+    content:'';
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:26px;
+    width:2px;
+    background:linear-gradient(180deg, var(--moss), var(--gold));
+  }
+
+  .tl-item{
+    position:relative;
+    padding-left:70px;
+    margin-bottom:2.6rem;
+  }
+
+  .tl-item:last-child{margin-bottom:0;}
+
+  .tl-dot{
+    position:absolute;
+    left:12px;
+    top:2px;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--forest-deep);
+    border:3px solid var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Shippori Mincho', serif;
+    font-size:0.8rem;
+    color:var(--cream);
+  }
+
+  .tl-date{
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    color:var(--bark);
+    margin-bottom:0.4rem;
+    font-weight:700;
+  }
+
+  .tl-item h3{
+    font-size:1.1rem;
+    margin-bottom:0.5rem;
+    color:var(--forest-deep);
+  }
+
+  .tl-item p{
+    font-size:0.92rem;
+    color:#3d4f42;
+  }
+
+  /* ===== CTA ===== */
+  .cta{
+    background:
+      radial-gradient(circle at 30% 30%, rgba(212,162,76,0.15), transparent 55%),
+      linear-gradient(150deg, #1c3d2d, var(--forest-deep));
+    color:var(--cream);
+    text-align:center;
+  }
+
+  .cta .section-inner{
+    max-width:640px;
+  }
+
+  .cta h2{
+    font-size:clamp(1.5rem, 3.2vw, 2.2rem);
+    color:var(--cream);
+    margin-bottom:1.4rem;
+  }
+
+  .cta p{
+    color:var(--sage);
+    margin-bottom:2.4rem;
+    font-size:0.98rem;
+  }
+
+  .cta-btn{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--forest-deep);
+    font-weight:700;
+    padding:1rem 2.6rem;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:0.98rem;
+    letter-spacing:0.05em;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow:0 10px 30px rgba(212,162,76,0.3);
+  }
+
+  .cta-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(212,162,76,0.4);
+  }
+
+  .cta-note{
+    margin-top:1.8rem;
+    font-size:0.78rem;
+    color:rgba(244,240,228,0.55);
+  }
+
+  footer{
+    background:var(--forest-deep);
+    color:rgba(244,240,228,0.5);
+    text-align:center;
+    padding:2rem 1.5rem;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:720px){
+    .card-grid{grid-template-columns:1fr;}
+    section{padding:4.2rem 1.2rem;}
+    .understand-box{padding:1.8rem;}
+    .hero{padding:5rem 1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="rings" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="30" fill="none" stroke="#D4A24C" stroke-width="1"/>
+    <circle cx="200" cy="200" r="60" fill="none" stroke="#C9D4B5" stroke-width="1"/>
+    <circle cx="200" cy="200" r="95" fill="none" stroke="#D4A24C" stroke-width="1"/>
+    <circle cx="200" cy="200" r="135" fill="none" stroke="#C9D4B5" stroke-width="1"/>
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#D4A24C" stroke-width="1"/>
+    <circle cx="200" cy="200" r="8" fill="#D4A24C"/>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="hero-badge">KAIROS からのご提案</span>
+    <h1 class="fade-in visible">木曜の夜、まだ何もない。<br>金曜の夜、そこに<span>森</span>がある。</h1>
+    <p class="lead fade-in visible">新規設立の一般社団法人様 公式LP制作案件。デザインという「種」は既に完成しています。私たちKairosが、それを最短距離で、確かな根を持つ一本の木として公開まで導きます。</p>
+    <p class="meta fade-in visible">一般社団法人 公式LP コーディング／レスポンシブ対応／4/11(土)公開想定</p>
+  </div>
+  <div class="scroll-cue">S C R O L L</div>
+</section>
+
+<section class="understand">
+  <div class="section-inner">
+    <span class="tag">案件理解</span>
+    <h2 class="section-title fade-in">「はじまり」を、期限内に地に根付かせる仕事</h2>
+    <div class="understand-box fade-in">
+      <p>一般社団法人の設立という、組織にとって一度きりの「はじまり」の瞬間。そこに掲げる公式LPは、単なるお知らせページではなく、これから積み上げていく信頼の第一ページだと理解しています。テーマは自然・森・サステナビリティ。ヒーローから代表挨拶、実績データ、メンバー紹介、事業内容、フロー、パートナー紹介、FAQ、CTAまで、10〜12セクションにわたる情報を、静かで確かな説得力を持つ一枚の森として組み上げる必要があります。</p>
+      <p class="highlight-line">同時に、これは4/8契約・4/9〜10実制作・4/10夜初稿・4/11公開という、動かせない期限を持つプロジェクトです。</p>
+      <p>デザインの完成度を落とさず、インフォグラフィック要素、アイコン、4ステップのフロー、フェードイン等の軽やかなアニメーションまでを含めて、レスポンシブで正確に再現しきる。「丁寧さ」と「速さ」を両立させることこそが、この案件で最も求められている価値だと私たちは考えています。</p>
+    </div>
+  </div>
+</section>
+
+<section class="value">
+  <div class="section-inner">
+    <span class="tag">Kairos が提供できる価値</span>
+    <h2 class="section-title fade-in">短い期限の中でも、崩さない4つの軸</h2>
+    <div class="card-grid">
+      <div class="card fade-in">
+        <span class="num">01</span>
+        <h3>2日間の完全コミット体制</h3>
+        <p>4/9〜4/10の実制作期間に集中してリソースを確保し、初稿を4/10夜までに確実に納品する体制で対応します。連絡のレスポンスも日中即応を想定しています。</p>
+      </div>
+      <div class="card fade-in">
+        <span class="num">02</span>
+        <h3>Figma忠実再現・ピクセル精度</h3>
+        <p>森・グリーン基調の落ち着いたデザイントーン、インフォグラフィック的な実績データ表現まで、デザインデータの意図を崩さず正確にコードへ落とし込みます。</p>
+      </div>
+      <div class="card fade-in">
+        <span class="num">03</span>
+        <h3>Sassによる保守性の高い実装</h3>
+        <p>ヒーロー／代表挨拶／メンバー紹介／事業内容／FAQなど多セクション構成を、変数・パーシャル分割されたSassで管理し、後日の更新や引き継ぎにも強い構造にします。</p>
+      </div>
+      <div class="card fade-in">
+        <span class="num">04</span>
+        <h3>実機ベースのレスポンシブ検証</h3>
+        <p>PC/スマートフォンの両方で、フェードインやパララックス的な軽量アニメーションを含めて実機・実ブラウザで確認し、公開後の見え方のズレを防ぎます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline">
+  <div class="section-inner">
+    <span class="tag">進め方・スケジュール</span>
+    <h2 class="section-title fade-in">4/8（水）契約から、4/11（土）公開まで</h2>
+    <div class="tl-list">
+      <div class="tl-item fade-in">
+        <div class="tl-dot">1</div>
+        <div class="tl-date">4/8（水）</div>
+        <h3>ご契約・キックオフ確認</h3>
+        <p>デザインデータ（Figma等）を拝受し、セクション構成・アニメーション仕様・レスポンシブの分岐点を最終確認。当日中に実装方針を確定します。</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-dot">2</div>
+        <div class="tl-date">4/9（木）〜4/10（金）</div>
+        <h3>実制作期間</h3>
+        <p>HTML/Sassでのコーディングを集中して実施。ヒーローから実績データ、メンバー紹介、フロー、FAQ、CTAまで全セクションを構築し、進捗を随時共有します。</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-dot">3</div>
+        <div class="tl-date">4/10（金）夜</div>
+        <h3>初稿納品・修正対応</h3>
+        <p>初稿をお届けし、ご確認いただいた修正点は当夜〜翌朝にかけて優先的に反映。タイトな中でも品質確認の時間を確保します。</p>
+      </div>
+      <div class="tl-item fade-in">
+        <div class="tl-dot">4</div>
+        <div class="tl-date">4/11（土）</div>
+        <h3>最終確認・公開</h3>
+        <p>PC/スマートフォンでの最終表示チェックを行い、公開作業まで対応。新しい一般社団法人の「はじまり」を、確かな形で世に出します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="section-inner">
+    <span class="tag" style="color:var(--gold);border-bottom-color:var(--sage);">次のアクション</span>
+    <h2 class="fade-in">この森を、金曜までに育てましょう。</h2>
+    <p class="fade-in">直近2日間のリソースは確保可能です。制作実績・実装コードのご共有、経歴のご説明もすぐにご用意いたします。まずはチャットにてお気軽にお声がけください。</p>
+    <a href="#" class="cta-btn">Kairos に相談する</a>
+    <p class="cta-note">goto.a 様｜一般社団法人 公式LPコーディング案件へのご提案 by Kairos</p>
+  </div>
+</section>
+
+<footer>
+  © Kairos — Web制作・システム開発チーム
+</footer>
+
+<script>
+  const targets = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold:0.15});
+  targets.forEach(t=>observer.observe(t));
+</script>
+
+</body>
+</html>
